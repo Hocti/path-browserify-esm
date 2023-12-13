@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.2
+* ESM
+* setCWD
+* path.process_cwd
+
 ## 1.0.1
 * Fix a duplicate test name.
 * Tweak LICENSE text so Github can recognise it.
