@@ -1,28 +1,29 @@
 {
-  "name": "path-browserify",
-  "description": "the path module from node core for browsers",
-  "version": "1.0.1",
+  "name": "path-browserify-esm",
+  "description": "the path module from node core for browsers ,in ESM format",
+  "version": "1.0.2",
   "author": {
-    "name": "James Halliday",
-    "email": "mail@substack.net",
-    "url": "http://substack.net"
+    "name": "Hocti"
   },
-  "bugs": "https://github.com/browserify/path-browserify/issues",
+  "bugs": "https://github.com/Hocti/path-browserify-esm/issues",
   "dependencies": {},
   "devDependencies": {
     "tape": "^4.9.0"
   },
-  "homepage": "https://github.com/browserify/path-browserify",
+  "homepage": "https://github.com/Hocti/path-browserify-esm",
   "keywords": [
     "browser",
     "browserify",
     "path"
   ],
   "license": "MIT",
-  "main": "index.js",
+  "type": "module",
+	"main": "index.esm.js",
+	"module": "index.esm.js",
+	"types": "index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git://github.com/browserify/path-browserify.git"
+    "url": "git://github.com/Hocti/path-browserify-esm.git"
   },
   "scripts": {
     "test": "node test"

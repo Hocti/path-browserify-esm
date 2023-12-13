@@ -107,8 +107,16 @@ function _format(sep, pathObject) {
   }
   return dir + sep + base;
 }
+//let process_cwd = undefined;
 
 var posix = {
+
+  //*new
+  process_cwd:undefined,
+  setCWD:function setCWD(_cwd){
+    posix.process_cwd=_cwd;
+  },
+
   // path.resolve([from ...], to)
   resolve: function resolve() {
     var resolvedPath = '';
@@ -121,7 +129,7 @@ var posix = {
         path = arguments[i];
       else {
         if (cwd === undefined)
-          cwd = process.cwd();
+          cwd = posix.process_cwd;//*process.cwd();
         path = cwd;
       }
 
@@ -131,8 +139,14 @@ var posix = {
       if (path.length === 0) {
         continue;
       }
+      
+      //*new
+      if (path + '/' === resolvedPath) {
+        continue;
+      }
 
       resolvedPath = path + '/' + resolvedPath;
+
       resolvedAbsolute = path.charCodeAt(0) === 47 /*/*/;
     }
 
@@ -526,4 +540,9 @@ var posix = {
 
 posix.posix = posix;
 
-module.exports = posix;
+//module.exports = posix;
+
+//*
+export {
+  posix as default
+};

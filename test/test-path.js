@@ -20,8 +20,8 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 'use strict';
-var tape = require('tape');
-var path = require('../');
+import tape from 'tape';
+import path from '../index.esm.js';
 
 // Test thrown TypeErrors
 var typeErrorTests = [true, false, 7, null, {}, undefined, [], NaN];

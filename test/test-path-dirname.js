@@ -1,6 +1,5 @@
-'use strict';
-var tape = require('tape');
-var path = require('../');
+import tape from 'tape';
+import path from '../index.esm.js';
 
 tape('path.posix.dirname', function (t) {
   t.strictEqual(path.posix.dirname('/a/b/'), '/a');

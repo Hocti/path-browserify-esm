@@ -5,9 +5,10 @@
 // directory. This test makes sure that the behavior is intact between commits.
 // See: https://github.com/nodejs/node/pull/2106
 
-var tape = require('tape');
-var path = require('../');
+import tape from 'tape';
+import path from '../index.esm.js';
 var pwd = process.cwd();
+path.setCWD(pwd);
 
 tape('path.join zero-length', function (t) {
   // join will internally ignore all the zero-length strings and it will return
