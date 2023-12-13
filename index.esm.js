@@ -112,7 +112,7 @@ function _format(sep, pathObject) {
 var posix = {
 
   //*new
-  process_cwd:undefined,
+  process_cwd:'',
   setCWD:function setCWD(_cwd){
     posix.process_cwd=_cwd;
   },

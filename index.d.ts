@@ -20,6 +20,7 @@ declare namespace path {
         parse(path: string): PathObject;
 
         setCWD(path: string): void;
+        readonly process_cwd: string;
 
         readonly sep: string;
         readonly delimiter: string;
