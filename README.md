@@ -1,4 +1,4 @@
-# path-browserify-esm [![Build Status](https://travis-ci.org/browserify/path-browserify.png?branch=master)](https://travis-ci.org/browserify/path-browserify)
+# path-browserify-esm [![npm version](https://img.shields.io/npm/v/path-browserify-esm.svg?logo=npm)](https://www.npmjs.com/package/path-browserify-esm)
 
 > The `path` module from Node.js for browsers
 
@@ -6,7 +6,10 @@
 
 - converted to ES6 Modules (ESM)
 
-- added new method: setCWD(path: string). The original path-browserify would fail when calling *resolve* in browser, as it calls process.cwd() internally. Now, the CWD can be manually set (default is empty string)
+- added new method: **path.setCWD(path: string)** <br/>
+    The original path-browserify would fail when calling *resolve* in browser, as it calls process.cwd() internally. Now, the CWD can be manually set (default is empty string)
+
+- **path.process_cwd:string** get the current CWD
 
 
 /
