@@ -1,7 +1,7 @@
 {
   "name": "path-browserify-esm",
-  "description": "the path module from node core for browsers ,in ESM format",
-  "version": "1.0.4",
+  "description": "the path module from node core for browsers, with ESM format, fixed `process.cwd()`",
+  "version": "1.0.5",
   "author": {
     "name": "Hocti"
   },
@@ -17,15 +17,36 @@
     "path"
   ],
   "license": "MIT",
+  
   "type": "module",
-	"main": "index.esm.js",
+	"main": "index.js",
 	"module": "index.esm.js",
 	"types": "index.d.ts",
+  
+	"exports": {
+		".": {
+			"import": {
+				"types": "./index.d.ts",
+				"default": "./index.esm.js"
+			}
+		}
+	},
+	"files": [
+		"index.js",
+		"index.esm.js",
+		"index.d.js",
+		"package.json",
+		"LICENSE",
+		"README.md",
+		"CHANGELOG.md"
+	],
+	
   "repository": {
     "type": "git",
     "url": "git://github.com/Hocti/path-browserify-esm.git"
   },
   "scripts": {
-    "test": "node test"
+    "test": "node test",
+    "test2": "node test2"
   }
 }

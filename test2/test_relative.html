@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script src="../index.js"></script>
+    <script>
+        const pwd=path.dirname(location.pathname);
+        path.setCWD(pwd);
+
+        const testlog = (a, b) => {
+            if(a!==b){
+                console.error(a, b);
+            }else{
+                console.log('ok');
+            }
+        }
+
+        testlog(path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb'), '../../impl/bbb');
+        testlog(path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl\\bbb'), '..\\..\\impl\\bbb');
+        testlog(path.relative('C:\\orandea\\test\\aaa'.replaceAll('\\','/'), 'C:\\orandea\\impl\\bbb'.replaceAll('\\','/')), '..\\..\\impl\\bbb'.replaceAll('\\','/'));
+
+        testlog(path.relative('C:\\orandea\\test\\aaa'.replaceAll('\\','/'), 'C:\\orandea\\impl\\bbb'), '..\\..\\impl\\bbb'.replaceAll('\\','/'));
+        testlog(path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl\\bbb'.replaceAll('\\','/')), '..\\..\\impl\\bbb');
+        testlog(path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl/bbb'), '..\\..\\impl\\bbb');
+
+        console.log(path.dirname('C:\\orandea\\test\\aaa'));
+        console.log(path.dirname('C:/orandea/test/aaa'));
+        console.log(path.dirname('C:\\orandea\\test\\aaa\\'));
+        console.log(path.dirname('C:/orandea/test/aaa/'));
+        console.log(path.dirname('C:\\orandea\\test/aaa\\'));
+        console.log(path.dirname('C:/orandea\\test/aaa/'));
+
+</script>
+</body>
+</html>

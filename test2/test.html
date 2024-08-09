@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script src="../index.js"></script>
+    <script>
+        console.log('test2');
+        //const pwd='/test2'
+        const pwd=path.dirname(location.pathname);
+        path.setCWD(pwd);
+        const t=undefined;
+
+        const testlog = (a, b) => {
+            if(a!==b){
+                console.error(a, b);
+            }else{
+                console.log('ok');
+            }
+        }
+
+
+
+
+        testlog(path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb'), '../../impl/bbb');
+        testlog(path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl\\bbb'), '..\\..\\impl\\bbb');
+        testlog(path.relative('C:\\orandea\\test\\aaa'.replaceAll('\\','/'), 'C:\\orandea\\impl\\bbb'.replaceAll('\\','/')), '..\\..\\impl\\bbb'.replaceAll('\\','/'));
+testlog(path.basename('.js', '.js'), '');
+
+  testlog(path.basename(''), '');
+  testlog(path.basename('/dir/basename.ext'), 'basename.ext');
+  testlog(path.basename('/basename.ext'), 'basename.ext');
+  testlog(path.basename('basename.ext'), 'basename.ext');
+  testlog(path.basename('basename.ext/'), 'basename.ext');
+  testlog(path.basename('basename.ext//'), 'basename.ext');
+  testlog(path.basename('aaa/bbb', '/bbb'), 'bbb');
+  testlog(path.basename('aaa/bbb', 'a/bbb'), 'bbb');
+  testlog(path.basename('aaa/bbb', 'bbb'), 'bbb');
+  testlog(path.basename('aaa/bbb//', 'bbb'), 'bbb');
+  testlog(path.basename('aaa/bbb', 'bb'), 'b');
+  testlog(path.basename('aaa/bbb', 'b'), 'bb');
+  testlog(path.basename('/aaa/bbb', '/bbb'), 'bbb');
+  testlog(path.basename('/aaa/bbb', 'a/bbb'), 'bbb');
+  testlog(path.basename('/aaa/bbb', 'bbb'), 'bbb');
+  testlog(path.basename('/aaa/bbb//', 'bbb'), 'bbb');
+  testlog(path.basename('/aaa/bbb', 'bb'), 'b');
+  testlog(path.basename('/aaa/bbb', 'b'), 'bb');
+  testlog(path.basename('/aaa/bbb'), 'bbb');
+  testlog(path.basename('/aaa/'), 'aaa');
+  testlog(path.basename('/aaa/b'), 'b');
+  testlog(path.basename('/a/b'), 'b');
+  testlog(path.basename('//a'), 'a');
+
+  /*
+  testlog(path.win32.basename('\\dir\\basename.ext'), 'basename.ext');
+  testlog(path.win32.basename('\\basename.ext'), 'basename.ext');
+  testlog(path.win32.basename('basename.ext'), 'basename.ext');
+  testlog(path.win32.basename('basename.ext\\'), 'basename.ext');
+  testlog(path.win32.basename('basename.ext\\\\'), 'basename.ext');
+  testlog(path.win32.basename('foo'), 'foo');
+  testlog(path.win32.basename('aaa\\bbb', '\\bbb'), 'bbb');
+  testlog(path.win32.basename('aaa\\bbb', 'a\\bbb'), 'bbb');
+  testlog(path.win32.basename('aaa\\bbb', 'bbb'), 'bbb');
+  testlog(path.win32.basename('aaa\\bbb\\\\\\\\', 'bbb'), 'bbb');
+  testlog(path.win32.basename('aaa\\bbb', 'bb'), 'b');
+  testlog(path.win32.basename('aaa\\bbb', 'b'), 'bb');
+  testlog(path.win32.basename('C:'), '');
+  testlog(path.win32.basename('C:.'), '.');
+  testlog(path.win32.basename('C:\\'), '');
+  testlog(path.win32.basename('C:\\dir\\base.ext'), 'base.ext');
+  testlog(path.win32.basename('C:\\basename.ext'), 'basename.ext');
+  testlog(path.win32.basename('C:basename.ext'), 'basename.ext');
+  testlog(path.win32.basename('C:basename.ext\\'), 'basename.ext');
+  testlog(path.win32.basename('C:basename.ext\\\\'), 'basename.ext');
+  testlog(path.win32.basename('C:foo'), 'foo');
+  testlog(path.win32.basename('file:stream'), 'file:stream');
+*/
+  testlog(path.posix.basename('\\dir\\basename.ext'),
+                     '\\dir\\basename.ext');
+  testlog(path.posix.basename('\\basename.ext'), '\\basename.ext');
+  testlog(path.posix.basename('basename.ext'), 'basename.ext');
+  testlog(path.posix.basename('basename.ext\\'), 'basename.ext\\');
+  testlog(path.posix.basename('basename.ext\\\\'), 'basename.ext\\\\');
+  testlog(path.posix.basename('foo'), 'foo');
+
+  var controlCharFilename = "Icon" + (String.fromCharCode(13));
+  testlog(path.posix.basename(("/a/b/" + controlCharFilename)),
+                     controlCharFilename);
+
+
+                     testlog(path.posix.dirname('/a/b/'), '/a');
+  testlog(path.posix.dirname('/a/b'), '/a');
+  testlog(path.posix.dirname('/a'), '/');
+  testlog(path.posix.dirname(''), '.');
+  testlog(path.posix.dirname('/'), '/');
+  testlog(path.posix.dirname('////'), '/');
+  testlog(path.posix.dirname('//a'), '//');
+  testlog(path.posix.dirname('foo'), '.');
+
+
+
+  
+var slashRE = /\//g;
+
+var pairs = [
+//  [__filename, '.js'],
+  ['', ''],
+  ['/path/to/file', ''],
+  ['/path/to/file.ext', '.ext'],
+  ['/path.to/file.ext', '.ext'],
+  ['/path.to/file', ''],
+  ['/path.to/.file', ''],
+  ['/path.to/.file.ext', '.ext'],
+  ['/path/to/f.ext', '.ext'],
+  ['/path/to/..ext', '.ext'],
+  ['/path/to/..', ''],
+  ['file', ''],
+  ['file.ext', '.ext'],
+  ['.file', ''],
+  ['.file.ext', '.ext'],
+  ['/file', ''],
+  ['/file.ext', '.ext'],
+  ['/.file', ''],
+  ['/.file.ext', '.ext'],
+  ['.path/file.ext', '.ext'],
+  ['file.ext.ext', '.ext'],
+  ['file.', '.'],
+  ['.', ''],
+  ['./', ''],
+  ['.file.ext', '.ext'],
+  ['.file', ''],
+  ['.file.', '.'],
+  ['.file..', '.'],
+  ['..', ''],
+  ['../', ''],
+  ['..file.ext', '.ext'],
+  ['..file', '.file'],
+  ['..file.', '.'],
+  ['..file..', '.'],
+  ['...', '.'],
+  ['...ext', '.ext'],
+  ['....', '.'],
+  ['file.ext/', '.ext'],
+  ['file.ext//', '.ext'],
+  ['file/', ''],
+  ['file//', ''],
+  ['file./', '.'],
+  ['file.//', '.'] ];
+
+  pairs.forEach(function (p) {
+    var input = p[0];
+    var expected = p[1];
+    testlog(expected, path.posix.extname(input));
+  });
+  
+  // On *nix, backslash is a valid name component like any other character.
+  testlog(path.posix.extname('.\\'), '');
+  testlog(path.posix.extname('..\\'), '.\\');
+  testlog(path.posix.extname('file.ext\\'), '.ext\\');
+  testlog(path.posix.extname('file.ext\\\\'), '.ext\\\\');
+  testlog(path.posix.extname('file\\'), '');
+  testlog(path.posix.extname('file\\\\'), '');
+  testlog(path.posix.extname('file.\\'), '.\\');
+  testlog(path.posix.extname('file.\\\\'), '.\\\\');
+  
+
+  testlog(path.posix.isAbsolute('/home/foo'), true);
+  testlog(path.posix.isAbsolute('/home/foo/..'), true);
+  testlog(path.posix.isAbsolute('bar/'), false);
+  testlog(path.posix.isAbsolute('./baz'), false);
+
+
+  
+var backslashRE = /\\/g;
+
+var joinTests =
+    // arguments                     result
+    [[['.', 'x/b', '..', '/b/c.js'], 'x/b/c.js'],
+     [[], '.'],
+     [['/.', 'x/b', '..', '/b/c.js'], '/x/b/c.js'],
+     [['/foo', '../../../bar'], '/bar'],
+     [['foo', '../../../bar'], '../../bar'],
+     [['foo/', '../../../bar'], '../../bar'],
+     [['foo/x', '../../../bar'], '../bar'],
+     [['foo/x', './bar'], 'foo/x/bar'],
+     [['foo/x/', './bar'], 'foo/x/bar'],
+     [['foo/x/', '.', 'bar'], 'foo/x/bar'],
+     [['./'], './'],
+     [['.', './'], './'],
+     [['.', '.', '.'], '.'],
+     [['.', './', '.'], '.'],
+     [['.', '/./', '.'], '.'],
+     [['.', '/////./', '.'], '.'],
+     [['.'], '.'],
+     [['', '.'], '.'],
+     [['', 'foo'], 'foo'],
+     [['foo', '/bar'], 'foo/bar'],
+     [['', '/foo'], '/foo'],
+     [['', '', '/foo'], '/foo'],
+     [['', '', 'foo'], 'foo'],
+     [['foo', ''], 'foo'],
+     [['foo/', ''], 'foo/'],
+     [['foo', '', '/bar'], 'foo/bar'],
+     [['./', '..', '/foo'], '../foo'],
+     [['./', '..', '..', '/foo'], '../../foo'],
+     [['.', '..', '..', '/foo'], '../../foo'],
+     [['', '..', '..', '/foo'], '../../foo'],
+     [['/'], '/'],
+     [['/', '.'], '/'],
+     [['/', '..'], '/'],
+     [['/', '..', '..'], '/'],
+     [[''], '.'],
+     [['', ''], '.'],
+     [[' /foo'], ' /foo'],
+     [[' ', 'foo'], ' /foo'],
+     [[' ', '.'], ' '],
+     [[' ', '/'], ' /'],
+     [[' ', ''], ' '],
+     [['/', 'foo'], '/foo'],
+     [['/', '/foo'], '/foo'],
+     [['/', '//foo'], '/foo'],
+     [['/', '', '/foo'], '/foo'],
+     [['', '/', 'foo'], '/foo'],
+     [['', '/', '/foo'], '/foo']
+    ];
+
+// Windows-specific join tests
+var windowsJoinTests =
+    [// arguments                     result
+      // UNC path expected
+      [['//foo/bar'], '\\\\foo\\bar\\'],
+      [['\\/foo/bar'], '\\\\foo\\bar\\'],
+      [['\\\\foo/bar'], '\\\\foo\\bar\\'],
+      // UNC path expected - server and share separate
+      [['//foo', 'bar'], '\\\\foo\\bar\\'],
+      [['//foo/', 'bar'], '\\\\foo\\bar\\'],
+      [['//foo', '/bar'], '\\\\foo\\bar\\'],
+      // UNC path expected - questionable
+      [['//foo', '', 'bar'], '\\\\foo\\bar\\'],
+      [['//foo/', '', 'bar'], '\\\\foo\\bar\\'],
+      [['//foo/', '', '/bar'], '\\\\foo\\bar\\'],
+      // UNC path expected - even more questionable
+      [['', '//foo', 'bar'], '\\\\foo\\bar\\'],
+      [['', '//foo/', 'bar'], '\\\\foo\\bar\\'],
+      [['', '//foo/', '/bar'], '\\\\foo\\bar\\'],
+      // No UNC path expected (no double slash in first component)
+      [['\\', 'foo/bar'], '\\foo\\bar'],
+      [['\\', '/foo/bar'], '\\foo\\bar'],
+      [['', '/', '/foo/bar'], '\\foo\\bar'],
+      // No UNC path expected (no non-slashes in first component -
+      // questionable)
+      [['//', 'foo/bar'], '\\foo\\bar'],
+      [['//', '/foo/bar'], '\\foo\\bar'],
+      [['\\\\', '/', '/foo/bar'], '\\foo\\bar'],
+      [['//'], '/'],
+      // No UNC path expected (share name missing - questionable).
+      [['//foo'], '\\foo'],
+      [['//foo/'], '\\foo\\'],
+      [['//foo', '/'], '\\foo\\'],
+      [['//foo', '', '/'], '\\foo\\'],
+      // No UNC path expected (too many leading slashes - questionable)
+      [['///foo/bar'], '\\foo\\bar'],
+      [['////foo', 'bar'], '\\foo\\bar'],
+      [['\\\\\\/foo/bar'], '\\foo\\bar'],
+      // Drive-relative vs drive-absolute paths. This merely describes the
+      // status quo, rather than being obviously right
+      [['c:'], 'c:.'],
+      [['c:.'], 'c:.'],
+      [['c:', ''], 'c:.'],
+      [['', 'c:'], 'c:.'],
+      [['c:.', '/'], 'c:.\\'],
+      [['c:.', 'file'], 'c:file'],
+      [['c:', '/'], 'c:\\'],
+      [['c:', 'file'], 'c:\\file']
+    ];
+
+  joinTests.forEach(function (p) {
+    var actual = path.posix.join.apply(null, p[0]);
+    testlog(actual, p[1]);
+  });
+
+
+
+
+var unixPaths = [
+  // [path, root]
+  ['/home/user/dir/file.txt', '/'],
+  ['/home/user/a dir/another File.zip', '/'],
+  ['/home/user/a dir//another&File.', '/'],
+  ['/home/user/a$$$dir//another File.zip', '/'],
+  ['user/dir/another File.zip', ''],
+  ['file', ''],
+  ['.\\file', ''],
+  ['./file', ''],
+  ['C:\\foo', ''],
+  ['/', '/'],
+  ['', ''],
+  ['.', ''],
+  ['..', ''],
+  ['/foo', '/'],
+  ['/foo.', '/'],
+  ['/foo.bar', '/'],
+  ['/.', '/'],
+  ['/.foo', '/'],
+  ['/.foo.bar', '/'],
+  ['/foo/bar.baz', '/']
+];
+
+var unixSpecialCaseFormatTests = [
+  [{ dir: 'some/dir' }, 'some/dir/'],
+  [{ base: 'index.html' }, 'index.html'],
+  [{ root: '/' }, '/'],
+  [{ name: 'index', ext: '.html' }, 'index.html'],
+  [{ dir: 'some/dir', name: 'index', ext: '.html' }, 'some/dir/index.html'],
+  [{ root: '/', name: 'index', ext: '.html' }, '/index.html'],
+  [{}, '']
+];
+
+var errors = [
+  { method: 'parse', input: [null], message: TypeError },
+  { method: 'parse', input: [{}], message: TypeError },
+  { method: 'parse', input: [true], message: TypeError },
+  { method: 'parse', input: [1], message: TypeError },
+  { method: 'parse', input: [], message: TypeError },
+  { method: 'format', input: [null], message: TypeError },
+  { method: 'format', input: [''], message: TypeError },
+  { method: 'format', input: [true], message: TypeError },
+  { method: 'format', input: [1], message: TypeError },
+];
+
+
+  checkParseFormat(t, path.posix, unixPaths);
+
+  checkErrors(t, path.posix);
+
+  checkFormat(t, path.posix, unixSpecialCaseFormatTests);
+
+// Test removal of trailing path separators
+var windowsTrailingTests =
+    [['.\\', { root: '', dir: '', base: '.', ext: '', name: '.' }],
+     ['\\\\', { root: '\\', dir: '\\', base: '', ext: '', name: '' }],
+     ['\\\\', { root: '\\', dir: '\\', base: '', ext: '', name: '' }],
+     ['c:\\foo\\\\\\',
+      { root: 'c:\\', dir: 'c:\\', base: 'foo', ext: '', name: 'foo' }],
+     ['D:\\foo\\\\\\bar.baz',
+      { root: 'D:\\',
+        dir: 'D:\\foo\\\\',
+        base: 'bar.baz',
+        ext: '.baz',
+        name: 'bar'
+      }
+     ]
+    ];
+var posixTrailingTests =
+    [['./', { root: '', dir: '', base: '.', ext: '', name: '.' }],
+     ['//', { root: '/', dir: '/', base: '', ext: '', name: '' }],
+     ['///', { root: '/', dir: '/', base: '', ext: '', name: '' }],
+     ['/foo///', { root: '/', dir: '/', base: 'foo', ext: '', name: 'foo' }],
+     ['/foo///bar.baz',
+      { root: '/', dir: '/foo//', base: 'bar.baz', ext: '.baz', name: 'bar' }
+     ]
+    ];
+
+
+  posixTrailingTests.forEach(function (p) {
+    var actual = path.posix.parse(p[0]);
+    var expected = p[1];
+    testlog(JSON.stringify(actual), JSON.stringify(expected));
+    //*t.deepEqual(actual, expected)
+  });
+
+function checkErrors(t, path) {
+  //*
+  errors.forEach(function(errorCase) {
+    try{
+      path[errorCase.method].apply(path, errorCase.input)
+  }catch(e){
+    console.log('ok',e.message);
+    return
+  }
+  console.error('!no error');
+    /*
+    console.log(errorCase.method,errorCase.input);
+    console.log(path[errorCase.method].apply(path, errorCase.input));
+    t.throws(function () {
+      path[errorCase.method].apply(path, errorCase.input);
+    }, errorCase.message);
+    */
+  });
+}
+
+function checkParseFormat(t, path, paths) {
+  paths.forEach(function(p) {
+    var element = p[0];
+    var root = p[1];
+    var output = path.parse(element);
+    testlog(typeof output.root, 'string');
+    testlog(typeof output.dir, 'string');
+    testlog(typeof output.base, 'string');
+    testlog(typeof output.ext, 'string');
+    testlog(typeof output.name, 'string');
+    testlog(path.format(output), element);
+    testlog(output.root, root);
+    
+    testlog(output.dir, output.dir ? path.dirname(element) : '');
+    testlog(output.base, path.basename(element));
+    testlog(output.ext, path.extname(element));
+  });
+}
+
+function checkSpecialCaseParseFormat(t, path, testCases) {
+  testCases.forEach(function(testCase) {
+    var element = testCase[0];
+    var expect = testCase[1];
+    var output = path.parse(element);
+    Object.keys(expect).forEach(function(key) {
+      testlog(output[key], expect[key]);
+    });
+  });
+}
+
+function checkFormat(t, path, testCases) {
+  testCases.forEach(function(testCase) {
+    testlog(path.format(testCase[0]), testCase[1]);
+  });
+  [null, undefined, 1, true, false, 'string'].forEach(function (pathObject) {
+  //*
+      
+  try{
+    pathObject,path.format(pathObject)
+  }catch(e){
+    console.log('ok',e.message);
+    return
+  }
+  console.error('!no error');
+    //}, /The "pathObject" argument must be of type Object. Received type (\w+)/);
+  });
+}
+
+
+var relativeTests = {
+  posix:
+    // arguments          result
+    [['/var/lib', '/var', '..'],
+     ['/var/lib', '/bin', '../../bin'],
+     ['/var/lib', '/var/lib', ''],
+     ['/var/lib', '/var/apache', '../apache'],
+     ['/var/', '/var/lib', 'lib'],
+     ['/', '/var/lib', 'var/lib'],
+     ['/foo/test', '/foo/test/bar/package.json', 'bar/package.json'],
+     ['/Users/a/web/b/test/mails', '/Users/a/web/b', '../..'],
+     ['/foo/bar/baz-quux', '/foo/bar/baz', '../baz'],
+     ['/foo/bar/baz', '/foo/bar/baz-quux', '../baz-quux'],
+     ['/baz-quux', '/baz', '../baz'],
+     ['/baz', '/baz-quux', '../baz-quux']
+    ]
+};
+
+  relativeTests.posix.forEach(function (p) {
+    var expected = p[2];
+    var actual = path.posix.relative(p[0], p[1]);
+    testlog(actual, expected);
+  });
+
+var posixTests =
+    // arguments                    result
+    [[['/var/lib', '../', 'file/'], '/var/file'],
+     [['/var/lib', '/../', 'file/'], '/file'],
+     [['a/b/c/', '../../..'], pwd],
+     [['.'], pwd],
+     [['/some/dir', '.', '/absolute/'], '/absolute'],
+     [['/foo/tmp.3/', '../tmp.3/cycles/root.js'], '/foo/tmp.3/cycles/root.js']
+    ];
+
+  posixTests.forEach(function (p) {
+    var actual = path.posix.resolve.apply(null, p[0]);
+    testlog(actual, p[1]);
+  });
+
+
+
+  // join will internally ignore all the zero-length strings and it will return
+  // '.' if the joined string is a zero-length string.
+  testlog(path.posix.join(''), '.');
+  testlog(path.posix.join('', ''), '.');
+  if (path.win32) testlog(path.win32.join(''), '.');
+  if (path.win32) testlog(path.win32.join('', ''), '.');
+  testlog(path.join(pwd), pwd);
+  testlog(path.join(pwd, ''), pwd);
+  
+
+
+  // normalize will return '.' if the input is a zero-length string
+  testlog(path.posix.normalize(''), '.');
+  if (path.win32) testlog(path.win32.normalize(''), '.');
+  testlog(path.normalize(pwd), pwd);
+  
+  // Since '' is not a valid path in any of the common environments, return false
+  testlog(path.posix.isAbsolute(''), false);
+  if (path.win32) testlog(path.win32.isAbsolute(''), false);
+
+  // resolve, internally ignores all the zero-length strings and returns the
+  // current working directory
+  testlog(path.resolve(''), pwd);
+  testlog(path.resolve('', ''), pwd);
+
+  // relative, internally calls resolve. So, '' is actually the current directory
+  testlog(path.relative('', pwd), '');
+  testlog(path.relative(pwd, ''), '');
+  testlog(path.relative(pwd, pwd), '');
+
+
+
+  
+
+// Test thrown TypeErrors
+var typeErrorTests = [true, false, 7, null, {}, undefined, [], NaN];
+
+function fail(t, fn) {
+  var args = [].slice.call(arguments, 1);
+
+  try{
+    fn.apply(null, args)
+  }catch(e){
+    console.log('ok',e.message);
+    return
+  }
+  console.error('!no error');
+  
+}
+
+  typeErrorTests.forEach(function (test) {
+    fail(t, path.posix.join, test);
+    fail(t, path.posix.resolve, test);
+    fail(t, path.posix.normalize, test);
+    fail(t, path.posix.isAbsolute, test);
+    fail(t, path.posix.relative, test, 'foo');
+    fail(t, path.posix.relative, 'foo', test);
+    fail(t, path.posix.parse, test);
+    fail(t, path.posix.dirname, test);
+    fail(t, path.posix.basename, test);
+    fail(t, path.posix.extname, test);
+
+    // undefined is a valid value as the second argument to basename
+    if (test !== undefined) {
+      fail(t, path.posix.basename, 'foo', test);
+    }
+  })
+
+    
+  testlog(path.posix.sep, '/');
+  
+  
+  testlog(path.posix.delimiter, ':');
+  
+  testlog(path, path.posix);
+</script>
+</body>
+</html>

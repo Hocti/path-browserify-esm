@@ -22,6 +22,14 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
+
+var path = (function () {
+
+
+
+
+
 'use strict';
 
 function assertPath(path) {
@@ -107,10 +115,9 @@ function _format(sep, pathObject) {
   }
   return dir + sep + base;
 }
-//let process_cwd = undefined;
 
 var posix = {
-
+  
   //*new
   process_cwd:'',
   setCWD:function setCWD(_cwd){
@@ -144,9 +151,8 @@ var posix = {
       if (path + '/' === resolvedPath) {
         continue;
       }
-
+	  
       resolvedPath = path + '/' + resolvedPath;
-
       resolvedAbsolute = path.charCodeAt(0) === 47 /*/*/;
     }
 
@@ -226,7 +232,7 @@ var posix = {
     }else if(to2!=to){
       return posix.relative(from,to2);
     }
-    
+
     from = posix.resolve(from);
     to = posix.resolve(to);
 
@@ -551,9 +557,10 @@ var posix = {
 
 posix.posix = posix;
 
-//module.exports = posix;
 
-//*
-export {
-  posix as default
-};
+
+
+
+Object.defineProperty(posix, '__esModule', { value: true });
+return posix;
+})();

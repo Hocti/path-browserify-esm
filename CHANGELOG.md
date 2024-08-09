@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## 1.0.5
+* add back iife version with `setCWD` and `path.process_cwd` 
+* fixed path.relative with '/'
+
 ## 1.0.2
 * ESM
 * setCWD
